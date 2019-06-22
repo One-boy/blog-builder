@@ -1,0 +1,90 @@
+/*
+ * @Author: huyu 
+ * @Date: 2019-06-22 11:59:48 
+ * @Last Modified by: huyu
+ * @Last Modified time: 2019-06-22 17:33:11
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.blog-left ul, .blog-right ul {
+  list-style: none;
+  padding-left: 16px;
+}
+
+
+.blog-left ul li, .blog-right ul li {
+  padding: 4px 0;
+}
+
+.blog-left ul li:hover>a, .blog-right ul li:hover>a {
+  font-weight: bold;
+  color: #525252;
+}
+
+.blog-left ul li a, .blog-right ul li a {
+  color: #545454;
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.blog-left ul li a.active, .blog-right ul li a.active {
+  font-weight: bold;
+  color: #525252;
+}
+
+.blog-container {
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.blog-left,
+.blog-right {
+  width: 300px;
+  flex-shrink: 0;
+  overflow: auto;
+}
+
+.blog-left {
+  border-right: 1px solid #d4d4d4;
+}
+
+.blog-right {
+  border-left: 1px solid #d4d4d4;
+}
+
+.blog-content {
+  flex-grow: 1;
+  overflow: auto;
+  animation-name: contentShow;
+  animation-delay: 0;
+  animation-duration: 250ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+@keyframes contentShow {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  40% {
+    transform: translate3d(0, 6px, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
