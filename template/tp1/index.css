@@ -2,7 +2,7 @@
  * @Author: huyu 
  * @Date: 2019-06-22 11:59:48 
  * @Last Modified by: huyu
- * @Last Modified time: 2019-06-22 17:33:11
+ * @Last Modified time: 2019-06-22 22:11:31
  */
 
 * {
@@ -25,9 +25,8 @@ body {
   padding: 4px 0;
 }
 
-.blog-left ul li:hover>a, .blog-right ul li:hover>a {
-  font-weight: bold;
-  color: #525252;
+.blog-left ul li a:hover, .blog-right ul li:hover a:hover {
+  color: #009688;
 }
 
 .blog-left ul li a, .blog-right ul li a {
@@ -37,6 +36,7 @@ body {
   white-space: nowrap;
   text-overflow: ellipsis;
   display: block;
+  font-size: 14px;
 }
 
 .blog-left ul li a.active, .blog-right ul li a.active {
@@ -54,25 +54,57 @@ body {
 .blog-right {
   width: 300px;
   flex-shrink: 0;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .blog-left {
   border-right: 1px solid #d4d4d4;
+  position: relative;
+}
+
+.blog-left .home {
+  position: absolute;
+  right: 1em;
+  top: 0;
+  color: #009688;
+  font-size: 14px;
+  text-decoration: none;
 }
 
 .blog-right {
   border-left: 1px solid #d4d4d4;
+
+}
+
+.blog-left .header, .blog-right .header {
+  height: 38px;
+  flex-shrink: 0;
+  line-height: 38px;
+  box-shadow: 0 1px 5px #e0e0e0;
+}
+
+.blog-left h5, .blog-right h5 {
+  text-align: center;
+  margin: 0;
+}
+
+.blog-left>ul, .blog-right>ul {
+  flex-grow: 1;
+  overflow: auto;
+  margin: 0;
+  padding: 1em;
 }
 
 .blog-content {
   flex-grow: 1;
   overflow: auto;
   animation-name: contentShow;
-  animation-delay: 0;
+  animation-delay: 0s;
   animation-duration: 250ms;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
+  padding: 1em;
 }
 
 @keyframes contentShow {

@@ -103,6 +103,7 @@ table {
   background-color: #f6f8fa;
   padding: .5em 1em;
   font-size: 0.85em;
+  white-space: pre-wrap;
 }
 
 .md-pre p {

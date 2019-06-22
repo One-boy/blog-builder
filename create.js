@@ -2,7 +2,7 @@
  * @Author: huyu
  * @Date: 2019-06-22 13:19:23
  * @Last Modified by: huyu
- * @Last Modified time: 2019-06-22 18:33:59
+ * @Last Modified time: 2019-06-22 21:52:22
  */
 
 
@@ -36,7 +36,7 @@ function createBlogList(data = [], currentPath) {
   let result = []
 
   let libPath = currentPath.split('/')
-  libPath.splice(0, 1)
+  // libPath.splice(0, 1)
   libPath = libPath.map(() => '../').join('')
 
   data.forEach(d => {
@@ -45,9 +45,10 @@ function createBlogList(data = [], currentPath) {
       if (!isMarkDown(d.name)) {
         return
       }
+      d.title = d.name.replace(new RegExp(config.markdownFileExt, 'gi'), '')
       result.push({
-        name: d.name,
-        url: `${libPath}${d.path}`,
+        name: d.title,
+        url: `${libPath}${d.path}/${d.title}`,
       })
     } else if (d.type === 'directory' && d.children && d.children.length > 0) {
       result.push({
@@ -136,8 +137,9 @@ function map(data, distPath, fullData) {
       let BLOG_LIST = []
       BLOG_LIST = createBlogList(fullData, d.path)
 
+      d.title = d.name.replace(new RegExp(config.markdownFileExt, 'gi'), '')
       // 创建文件夹
-      fs.mkdirSync(`${distPath}/${d.path}`, { recursive: true })
+      fs.mkdirSync(`${distPath}/${d.path}/${d.title}`, { recursive: true })
 
       // 读取文件内容
       const content = fs.readFileSync(`${d.path}/${d.name}`, { encoding: 'utf8' }).toString()
@@ -149,23 +151,24 @@ function map(data, distPath, fullData) {
       let html = fs.readFileSync(`${config.TEMPLATE_PATH}/${config.TEMPLATE_NAME}/index.html`).toString()
       // 替换模板内容
       let libPath = d.path.split('/')
-      libPath.splice(0, 1)
+      // libPath.splice(0, 1)
       libPath = libPath.map(() => '../').join('') + 'lib/'
 
       html = html
-        .replace('[BLOG_CONTENT]', newContent)
-        .replace('[BLOG_ACTIVE_KEY]', JSON.stringify(d.name))
+        .replace('index.js', `${libPath}/index.js`)
+        .replace('index.css', `${libPath}/index.css`)
+        .replace('</head>', `<link rel="stylesheet" href="${libPath}/md.css">
+      <link rel="stylesheet" href="${libPath}/${config.hightlightStyleFile}">
+      </head>
+      `)
+        .replace('[BLOG_ACTIVE_KEY]', JSON.stringify(d.title))
         .replace('[BLOG_LIST]', JSON.stringify(BLOG_LIST))
         .replace('[BLOG_TITLE]', JSON.stringify(BLOG_TITLE))
-        .replace('index.css', `${libPath}index.css`)
-        .replace('index.js', `${libPath}index.js`)
-        .replace('</head>', `<link rel="stylesheet" href="${libPath}/md.css">
-        <link rel="stylesheet" href="${libPath}/${config.hightlightStyleFile}">
-        </head>
-        `)
+        .replace('[BLOG_CONTENT]', newContent)
+
 
       // 输出到文件
-      fs.writeFileSync(`${distPath}/${d.path}/index.html`, html)
+      fs.writeFileSync(`${distPath}/${d.path}/${d.title}/index.html`, html)
     } else if (d.type === 'directory') {
       fs.mkdirSync(`${distPath}/${d.path}`, { recursive: true })
       map(d.children, distPath, fullData)

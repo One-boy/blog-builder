@@ -2,7 +2,7 @@
  * @Author: huyu
  * @Date: 2019-06-22 12:25:24
  * @Last Modified by: huyu
- * @Last Modified time: 2019-06-22 18:31:46
+ * @Last Modified time: 2019-06-22 21:31:44
  */
 
 // 配置
@@ -19,7 +19,7 @@ const TEMPLATE_PATH = './template'
 const BLOG_PATH = './blog'
 
 // 代码高亮样式文件，会去${hightlightStylePath}下面拷贝对应文件
-const hightlightStyleFile = 'dark.css'
+const hightlightStyleFile = 'github.css'
 // 代码高亮样式源路径
 const hightlightStylePath = 'node_modules/highlight.js/styles'
 
