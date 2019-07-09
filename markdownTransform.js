@@ -1,8 +1,8 @@
 /*
  * @Author: huyu 
  * @Date: 2019-06-22 13:17:39 
- * @Last Modified by: huyu
- * @Last Modified time: 2019-06-22 17:25:03
+ * @Last Modified by: hy
+ * @Last Modified time: 2019-07-09 15:59:44
  */
 
 // markdown转换
@@ -214,9 +214,9 @@ const Converter = function () {
   //表格处理
   function doTable(text) {
     //匹配一串表格
-    var p = /(.*)\|(.*)(\|(.*))*\n(---\|---(\|---)*)\n((.*)\|(.*)(\|(.*))*[\n]{0,})+/gm;
+    var p = /(.*)\|(.*)(\|(.*))*(?:\r\n|\n)(---\|---(\|---)*)(?:\r\n|\n)((.*)\|(.*)(\|(.*))*[(?:\r\n|\n)]{0,})+/gm;
     var result = text.replace(p, function (wholeMatch, m1, m2) {
-      wholeMatch = wholeMatch.split(/[\|\n]/);
+      wholeMatch = wholeMatch.split(/\||\n|\r\n/);
       var result = "<table class='" + HTMLClass.table + "'>"
       var head = "<thead><tr>"
       var body = "<tbody>"
