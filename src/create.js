@@ -1,8 +1,8 @@
 /*
  * @Author: huyu
  * @Date: 2019-06-22 13:19:23
- * @Last Modified by: huyu
- * @Last Modified time: 2019-06-22 21:52:22
+ * @Last Modified by: hy
+ * @Last Modified time: 2019-07-12 16:51:46
  */
 
 
@@ -19,7 +19,6 @@ function isMarkDown(name) {
   const reg = new RegExp(config.markdownFileExt, 'i')
   return reg.test(name)
 }
-
 
 // 是否拷贝文件
 function isCopyFile(name) {
@@ -48,7 +47,7 @@ function createBlogList(data = [], currentPath) {
       d.title = d.name.replace(new RegExp(config.markdownFileExt, 'gi'), '')
       result.push({
         name: d.title,
-        url: `${libPath}${d.path}/${d.title}`,
+        url: `${libPath}${d.path}/${d.title}/`,
       })
     } else if (d.type === 'directory' && d.children && d.children.length > 0) {
       result.push({
@@ -100,25 +99,8 @@ function createTitle(content) {
   return result
 }
 
-function Create(data, distPath) {
-
-  if (fs.existsSync(distPath)) {
-    fs.renameSync(distPath, `backup_dist_${Date.now()}`)
-    fs.mkdirSync(distPath)
-  }
-
-  // 初始化以及拷贝一些文件
-  fs.mkdirSync(`${distPath}/lib`, { recursive: true })
-  fs.copyFileSync((`${config.TEMPLATE_PATH}/${config.TEMPLATE_NAME}/index.js`), `${distPath}/lib/index.js`)
-  fs.copyFileSync(`${config.TEMPLATE_PATH}/${config.TEMPLATE_NAME}/index.css`, `${distPath}/lib/index.css`)
-  fs.copyFileSync(`lib/md.css`, `${distPath}/lib/md.css`)
-  fs.copyFileSync(`${config.hightlightStylePath}/${config.hightlightStyleFile}`, `${distPath}/lib/${config.hightlightStyleFile}`)
-
-  map(data, distPath, data)
-}
-
 // 遍历
-function map(data, distPath, fullData) {
+function map(data, distPath, fullData, jsonConfig) {
 
   data.forEach(d => {
 
@@ -148,32 +130,102 @@ function map(data, distPath, fullData) {
       // 提取标题
       BLOG_TITLE = createTitle(newContent)
       // 读取模板
-      let html = fs.readFileSync(`${config.TEMPLATE_PATH}/${config.TEMPLATE_NAME}/index.html`).toString()
+      let html = fs.readFileSync(`${config.TEMPLATE_PATH}/${config.TEMPLATE_NAME}/${jsonConfig.main.html}`).toString()
       // 替换模板内容
       let libPath = d.path.split('/')
-      // libPath.splice(0, 1)
-      libPath = libPath.map(() => '../').join('') + 'lib/'
 
+      let libPathPre = libPath.map(() => '../').join('')
+      libPath = libPathPre + 'lib/'
+
+      let activeKey = `${libPathPre}${d.path}/${d.title}/`
       html = html
-        .replace('index.js', `${libPath}/index.js`)
-        .replace('index.css', `${libPath}/index.css`)
+        .replace(jsonConfig.main.javascript, `${libPath}/index.js`)  // 替换index.js路径
+        .replace(jsonConfig.main.style, `${libPath}/index.css`)      // 替换index.css路径
         .replace('</head>', `<link rel="stylesheet" href="${libPath}/md.css">
       <link rel="stylesheet" href="${libPath}/${config.hightlightStyleFile}">
-      </head>
-      `)
-        .replace('[BLOG_ACTIVE_KEY]', JSON.stringify(d.title))
+      </head> 
+      `)  // 高亮样式文件路径
+        .replace('[BLOG_ACTIVE_KEY]', JSON.stringify(activeKey))
         .replace('[BLOG_LIST]', JSON.stringify(BLOG_LIST))
         .replace('[BLOG_TITLE]', JSON.stringify(BLOG_TITLE))
-        .replace('[BLOG_CONTENT]', newContent)
-
+        .replace('[BLOG_CONTENT]', JSON.stringify(newContent))
 
       // 输出到文件
       fs.writeFileSync(`${distPath}/${d.path}/${d.title}/index.html`, html)
     } else if (d.type === 'directory') {
       fs.mkdirSync(`${distPath}/${d.path}`, { recursive: true })
-      map(d.children, distPath, fullData)
+      map(d.children, distPath, fullData, jsonConfig)
     }
   })
+}
+
+// 创建首页index.html
+function createIndex(fullData, jsonConfig, distPath) {
+  // 提取文章列表
+  let BLOG_LIST = createBlogList(fullData, '')
+  // 内容
+  let content = config.indexContent
+  let libPath = '../lib'
+  // 读取模板
+  let html = fs.readFileSync(`${config.TEMPLATE_PATH}/${config.TEMPLATE_NAME}/${jsonConfig.main.html}`).toString()
+  html = html
+    .replace(jsonConfig.main.javascript, `${libPath}/index.js`)  // 替换index.js路径
+    .replace(jsonConfig.main.style, `${libPath}/index.css`)      // 替换index.css路径
+    .replace('</head>', `<link rel="stylesheet" href="${libPath}/md.css">
+    <link rel="stylesheet" href="${libPath}/${config.hightlightStyleFile}">
+    </head> 
+    `)  // 高亮样式文件路径
+    .replace('[BLOG_ACTIVE_KEY]', JSON.stringify(''))
+    .replace('[BLOG_LIST]', JSON.stringify(BLOG_LIST))
+    .replace('[BLOG_TITLE]', JSON.stringify([]))
+    .replace('[BLOG_CONTENT]', JSON.stringify(content))
+
+  let filePath = `${distPath}/${config.BLOG_PATH}`
+  if (!fs.existsSync(filePath)) {
+    fs.mkdirSync(filePath, { recursive: true })
+  }
+
+  // 输出到文件
+  fs.writeFileSync(`${filePath}/index.html`, html)
+}
+
+// 读取配置文件
+function readConfig() {
+  let congfigPath = `${config.TEMPLATE_PATH}/${config.TEMPLATE_NAME}/`
+  let configName = 'config.json'
+  let p = `${congfigPath}${configName}`
+  if (!fs.existsSync(p)) {
+    throw new Error(`未找到配置文件${p}`)
+  }
+  let jsonConfig = fs.readFileSync(p, { encoding: 'utf8' }).toString()
+  jsonConfig = JSON.parse(jsonConfig)
+  return jsonConfig
+}
+
+function Create(data, distPath) {
+
+  let jsonConfig = readConfig()
+
+  if (fs.existsSync(distPath)) {
+    fs.renameSync(distPath, `backup_dist_${Date.now()}`)
+    fs.mkdirSync(distPath)
+  }
+
+  // 创建首页
+  createIndex(data, jsonConfig, distPath)
+
+  let templatePath = `${config.TEMPLATE_PATH}/${config.TEMPLATE_NAME}`
+  let distLibPath = `${distPath}/lib`
+
+  fs.mkdirSync(distLibPath, { recursive: true })
+
+
+  fs.copyFileSync((`${templatePath}/${jsonConfig.main.javascript}`), `${distLibPath}/index.js`)
+  fs.copyFileSync(`${templatePath}/${jsonConfig.main.style}`, `${distLibPath}/index.css`)
+  fs.copyFileSync(`lib/md.css`, `${distLibPath}/md.css`)
+  fs.copyFileSync(`${config.hightlightStylePath}/${config.hightlightStyleFile}`, `${distLibPath}/${config.hightlightStyleFile}`)
+
+  map(data, distPath, data, jsonConfig)
 }
 
 module.exports = Create

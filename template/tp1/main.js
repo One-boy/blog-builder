@@ -1,67 +1,19 @@
 /*
  * @Author: huyu 
  * @Date: 2019-06-22 11:55:41 
- * @Last Modified by: huyu
- * @Last Modified time: 2019-06-22 18:43:49
+ * @Last Modified by: hy
+ * @Last Modified time: 2019-07-12 11:09:08
  */
 
 // tp1脚本
 
-
-// 活跃key
-// var ACTIVE_KEY = 'git/git基础--打标签'
-
-// 博客列表
-// var BLOG_LIST = [
-//   {
-//     name: 'git',
-//     children: [
-//       {
-//         name: 'git基础--打标签',
-//         url: 'git/git基础--打标签'
-//       },
-//       {
-//         name: 'git基础--打标签2',
-//         url: 'git/git基础--打标签2'
-//       },
-//     ],
-//   },
-//   {
-//     name: 'git基础--打标签3',
-//     url: 'git/git基础--打标签3'
-//   },
-// ]
-
-// 标题列表
-// var TITLE_LIST = [
-//   {
-//     name: 'git',
-//     url: 'git',
-//     children: [
-//       {
-//         name: 'git基础--打标签',
-//         url: 'git基础--打标签'
-//       },
-//       {
-//         name: 'git基础--打标签2',
-//         url: 'git基础--打标签2'
-//       },
-//     ],
-//   },
-//   {
-//     name: 'git基础--打标签3',
-//     url: 'git基础--打标签3'
-//   },
-// ]
-
-
 var blogLeft = document.getElementById('blog-left')
 var blogRight = document.getElementById('blog-right')
+var blogContent = document.getElementById('blog-content')
 
 var activeKey = ACTIVE_KEY
 var blogListData = BLOG_LIST
 var titleListData = TITLE_LIST
-
 
 // 渲染左边列表
 function renderLeft(data) {
@@ -116,6 +68,13 @@ function renderRight(data) {
   return ul
 }
 
+// 渲染内容
+function renderContent(content) {
+  if (typeof content === 'string') {
+    blogContent.innerHTML = content
+  }
+}
+
 var fragLeft = document.createDocumentFragment()
 var fragRight = document.createDocumentFragment()
 var ulLeft = renderLeft(blogListData)
@@ -124,5 +83,6 @@ var ulRight = renderRight(titleListData)
 fragLeft.appendChild(ulLeft)
 fragRight.appendChild(ulRight)
 
+renderContent(BLOG_CONTENT)
 blogLeft.appendChild(fragLeft)
 blogRight.appendChild(fragRight)

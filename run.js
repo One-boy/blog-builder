@@ -1,14 +1,14 @@
 /*
  * @Author: huyu
  * @Date: 2019-06-22 12:24:59
- * @Last Modified by: huyu
- * @Last Modified time: 2019-06-22 22:12:56
+ * @Last Modified by: hy
+ * @Last Modified time: 2019-07-11 20:00:01
  */
 
 // 生成脚本
-const config = require('./config')
-const Serialization = require('./Serialization')
-const Create = require('./create')
+const config = require('./src/config')
+const Serialization = require('./src/Serialization')
+const Create = require('./src/create')
 
 const files = Serialization(config.BLOG_PATH)
 Create(files, './dist')

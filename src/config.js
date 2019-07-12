@@ -1,8 +1,8 @@
 /*
  * @Author: huyu
  * @Date: 2019-06-22 12:25:24
- * @Last Modified by: huyu
- * @Last Modified time: 2019-06-22 21:31:44
+ * @Last Modified by: hy
+ * @Last Modified time: 2019-07-12 15:42:13
  */
 
 // 配置
@@ -11,7 +11,7 @@
 const markdownFileExt = '\\.md$'
 
 // 采用的模板名词
-const TEMPLATE_NAME = 'tp1'
+const TEMPLATE_NAME = 'tp2'
 // 模板路径
 const TEMPLATE_PATH = './template'
 
@@ -26,6 +26,9 @@ const hightlightStylePath = 'node_modules/highlight.js/styles'
 // 需要拷贝的文件名后缀
 const copyFileExt = ['\\.jpg$', '\\.png$', '\\.gif$', '\\.jpeg$']
 
+// 首页内容
+const indexContent = '<div><h5>欢迎来到我的博客</h5></div>'
+
 module.exports = {
   TEMPLATE_NAME,
   TEMPLATE_PATH,
@@ -34,4 +37,5 @@ module.exports = {
   hightlightStylePath,
   copyFileExt,
   markdownFileExt,
+  indexContent,
 }

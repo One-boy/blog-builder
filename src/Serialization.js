@@ -1,8 +1,8 @@
 /*
  * @Author: huyu 
  * @Date: 2019-06-22 12:52:01 
- * @Last Modified by: huyu
- * @Last Modified time: 2019-06-22 14:15:06
+ * @Last Modified by: hy
+ * @Last Modified time: 2019-07-12 16:26:38
  */
 
 // 根据传入路径，序列化返回一个文件夹和文件列表的对象
@@ -10,8 +10,6 @@ const fs = require('fs')
 
 
 function Serialization(path) {
-
-
   if (!fs.existsSync(path)) {
     throw new Error(`路径${path}不存在`)
   }
