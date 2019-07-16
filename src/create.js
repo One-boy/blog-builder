@@ -2,7 +2,7 @@
  * @Author: huyu
  * @Date: 2019-06-22 13:19:23
  * @Last Modified by: hy
- * @Last Modified time: 2019-07-12 16:51:46
+ * @Last Modified time: 2019-07-16 21:28:52
  */
 
 
@@ -35,7 +35,7 @@ function createBlogList(data = [], currentPath) {
   let result = []
 
   let libPath = currentPath.split('/')
-  // libPath.splice(0, 1)
+  libPath.splice(0, 1)
   libPath = libPath.map(() => '../').join('')
 
   data.forEach(d => {
@@ -45,9 +45,13 @@ function createBlogList(data = [], currentPath) {
         return
       }
       d.title = d.name.replace(new RegExp(config.markdownFileExt, 'gi'), '')
+      let url = `${libPath}${d.path}/${d.title}/`
+      if (d.path === './') {
+        url = `${libPath}${d.title}/`
+      }
       result.push({
         name: d.title,
-        url: `${libPath}${d.path}/${d.title}/`,
+        url,
       })
     } else if (d.type === 'directory' && d.children && d.children.length > 0) {
       result.push({
@@ -108,7 +112,7 @@ function map(data, distPath, fullData, jsonConfig) {
 
       if (isCopyFile(d.name)) {
         fs.mkdirSync(`${distPath}/${d.path}`, { recursive: true })
-        fs.copyFileSync(`${d.path}/${d.name}`, `${distPath}/${d.path}/${d.name}`)
+        fs.copyFileSync(`${config.BLOG_PATH}/${d.path}/${d.name}`, `${distPath}/${d.path}/${d.name}`)
       }
 
       if (!isMarkDown(d.name)) {
@@ -117,14 +121,15 @@ function map(data, distPath, fullData, jsonConfig) {
 
       let BLOG_TITLE = []
       let BLOG_LIST = []
-      BLOG_LIST = createBlogList(fullData, d.path)
+      let curPath = (d.path === './') ? d.path : `//${d.path}`
+      BLOG_LIST = createBlogList(fullData, curPath)
 
       d.title = d.name.replace(new RegExp(config.markdownFileExt, 'gi'), '')
       // 创建文件夹
       fs.mkdirSync(`${distPath}/${d.path}/${d.title}`, { recursive: true })
 
       // 读取文件内容
-      const content = fs.readFileSync(`${d.path}/${d.name}`, { encoding: 'utf8' }).toString()
+      const content = fs.readFileSync(`${config.BLOG_PATH}/${d.path}/${d.name}`, { encoding: 'utf8' }).toString()
       // 转换文件内容
       const newContent = MDT.buildToHTML(content)
       // 提取标题
@@ -133,11 +138,17 @@ function map(data, distPath, fullData, jsonConfig) {
       let html = fs.readFileSync(`${config.TEMPLATE_PATH}/${config.TEMPLATE_NAME}/${jsonConfig.main.html}`).toString()
       // 替换模板内容
       let libPath = d.path.split('/')
-
+      libPath.push('')
+      if (d.path === './') {
+        libPath.splice(0, 2)
+      }
       let libPathPre = libPath.map(() => '../').join('')
       libPath = libPathPre + 'lib/'
 
       let activeKey = `${libPathPre}${d.path}/${d.title}/`
+      if (d.path === './') {
+        activeKey = `${libPathPre}${d.title}/`
+      }
       html = html
         .replace(jsonConfig.main.javascript, `${libPath}/index.js`)  // 替换index.js路径
         .replace(jsonConfig.main.style, `${libPath}/index.css`)      // 替换index.css路径
@@ -165,7 +176,7 @@ function createIndex(fullData, jsonConfig, distPath) {
   let BLOG_LIST = createBlogList(fullData, '')
   // 内容
   let content = config.indexContent
-  let libPath = '../lib'
+  let libPath = 'lib'
   // 读取模板
   let html = fs.readFileSync(`${config.TEMPLATE_PATH}/${config.TEMPLATE_NAME}/${jsonConfig.main.html}`).toString()
   html = html
@@ -180,7 +191,7 @@ function createIndex(fullData, jsonConfig, distPath) {
     .replace('[BLOG_TITLE]', JSON.stringify([]))
     .replace('[BLOG_CONTENT]', JSON.stringify(content))
 
-  let filePath = `${distPath}/${config.BLOG_PATH}`
+  let filePath = `${distPath}`
   if (!fs.existsSync(filePath)) {
     fs.mkdirSync(filePath, { recursive: true })
   }
