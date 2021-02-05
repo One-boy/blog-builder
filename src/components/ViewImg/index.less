@@ -1,0 +1,46 @@
+.viewImgBody {
+  overflow: hidden;
+}
+
+.viewImg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  z-index: 11;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: viewImgWrapperAni 250ms ease-out 1 both;
+}
+
+@keyframes viewImgWrapperAni {
+  0% {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+.viewImg img {
+  max-width: 100%;
+  max-height: 100%;
+  transform-origin: center center;
+  animation: viewImgAni 250ms ease-out 1 both;
+}
+
+@keyframes viewImgAni {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,134 @@
+/*
+ * @Author: huyu 
+ * @Date: 2020-06-16 16:10:27 
+ * @Last Modified by: huyu
+ * @Last Modified time: 2020-07-28 15:03:36
+ */
+
+// 标题列表样式
+@import "../../theme/index.less";
+
+.main {
+  overflow: auto;
+  padding: @padding;
+  padding-left: 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  max-width: 220px;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: @back-color;
+  }
+
+  h3 {
+    padding: 0.4em 0 0.4em 0.6em;
+  }
+}
+
+@media screen and (min-width:1300px) {
+  .main {
+    max-width: 240px;
+  }
+}
+
+@media screen and (min-width:1400px) {
+  .main {
+    max-width: 260px;
+  }
+}
+
+@media screen and (min-width:1600px) {
+  .main {
+    max-width: 300px;
+  }
+}
+
+.ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-weight: normal;
+
+  a {
+    display: block;
+    padding: 0.4em 0 0.4em 0.6em;
+    text-decoration: none;
+    color: @header-color;
+    font-size: @font-size-normal;
+    transition: color 250ms;
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &:hover {
+      color: @highlight-color;
+    }
+  }
+
+  li {
+    border-left: 2px solid transparent;
+    background-color: transparent;
+    transition: all 250ms;
+
+    &.liactive {
+      border-left: 2px solid @highlight-color;
+      background-color: @back-color;
+    }
+  }
+
+  li>a:not(.heading0) {
+    &::before {
+      content: "";
+      display: block;
+      width: 4px;
+      height: 4px;
+      background: @header-color;
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.heading0 {
+  font-weight: bold;
+}
+
+.heading1 {
+  margin-left: 2em;
+}
+
+.heading2 {
+  margin-left: 3em;
+}
+
+.heading3 {
+  margin-left: 4em;
+}
+
+.heading4 {
+  margin-left: 5em;
+}
+
+.heading5 {
+  margin-left: 6em;
+}
+
+
+.active {
+  color: @highlight-color  !important;
+  font-weight: bold;
+
+  &::before {
+    background: @highlight-color  !important;
+  }
+}

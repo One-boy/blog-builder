@@ -1,20 +1,44 @@
 {
-  "name": "blog-builder",
-  "version": "1.0.0",
-  "description": "",
-  "main": "run.js",
-  "directories": {
-    "lib": "lib"
+  "name": "gatsby-starter-hello-world",
+  "private": true,
+  "description": "A simplified bare-bones starter for Gatsby",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "npm run clean && gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
-    "highlight.js": "^9.15.8"
+    "gatsby": "^2.22.15",
+    "gatsby-plugin-less": "^3.2.3",
+    "gatsby-plugin-react-helmet": "^3.3.3",
+    "gatsby-plugin-sitemap": "^2.4.11",
+    "gatsby-remark-autolink-headers": "^2.3.5",
+    "gatsby-remark-copy-linked-files": "^2.3.5",
+    "gatsby-remark-graph": "^0.2.3",
+    "gatsby-remark-prismjs": "^3.5.3",
+    "gatsby-source-filesystem": "^2.3.10",
+    "gatsby-transformer-remark": "^2.8.14",
+    "github-markdown-css": "^4.0.0",
+    "less": "^3.11.3",
+    "prismjs": "^1.20.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-helmet": "^6.0.0"
   },
   "devDependencies": {
-    "http-server": "^0.9.0"
+    "prettier": "2.0.5"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gatsbyjs/gatsby-starter-hello-world"
   },
-  "author": "",
-  "license": "ISC"
+  "bugs": {
+    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  }
 }

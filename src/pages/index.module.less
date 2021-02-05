@@ -1,0 +1,107 @@
+/*
+ * @Author: huyu 
+ * @Date: 2020-06-06 11:01:52 
+ * @Last Modified by: hy
+ * @Last Modified time: 2020-11-20 00:06:49
+ */
+
+// 首页样式文件
+@import "../theme/index.less";
+
+.main {
+  color: @white;
+
+  :global {
+    a.normal-link {
+      color: @white;
+    }
+  }
+}
+
+.body {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 11;
+  transform: translateX(-50%) translateY(-50%);
+
+  h1 {
+    letter-spacing: 4px;
+    text-align: center;
+    color: @white;
+  }
+}
+
+.content {
+  margin-top: @margin;
+  display: flex;
+  justify-content: center;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  :global {
+    .normal-link {
+      font-size: 1.6rem;
+      border: 2px solid rgba(255, 255, 255, 0.65);
+      padding: 10px 32px;
+      border-radius: 4px;
+      transition: border 250ms;
+      &:hover {
+        border: 2px solid rgba(255, 255, 255, 1);
+      }
+    }
+  }
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.background:local {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background-color: black;
+  background-image: url(../resource/images/fh-1.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  animation: hueRotate 60s linear 0s infinite forwards;
+}
+
+@keyframes hueRotate {
+  0% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+
+  50% {
+    filter: hue-rotate(360deg) brightness(0.65);
+  }
+
+  100% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+}
+
+.bgtitle {
+  position: absolute;
+  top: 73%;
+  left: 50%;
+  z-index: 10;
+  transform: translate3d(-50%, -50%, 0);
+  font-size: 5vw;
+  color: @white;
+  letter-spacing: 1vw;
+  white-space: nowrap;
+  font-family: cursive;
+  opacity: 0.5;
+}

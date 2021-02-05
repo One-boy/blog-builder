@@ -1,0 +1,63 @@
+/*
+ * @Author: huyu 
+ * @Date: 2020-06-06 16:00:12 
+ * @Last Modified by: huyu
+ * @Last Modified time: 2020-09-05 16:53:02
+ */
+
+// 数据项样式
+@import "../../theme/index.less";
+
+.main {
+  position: relative;
+  background-color: @white;
+  transition: all 250ms;
+  margin-bottom: @margin;
+  padding: @padding - 8px;
+  border-bottom: 1px solid #efefef;
+
+  h2 {
+    margin-bottom: 4px;
+  }
+
+  &:hover {
+    transform: translate3d(0, -3px, 0);
+    box-shadow: 1px 2px 5px @gray-light;
+  }
+}
+
+.anchor {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  text-indent: -100%;
+  white-space: nowrap;
+  z-index: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.excerpt {
+  margin: @margin 0;
+  font-size: @font-size-normal;
+  color: @gray;
+}
+
+.ext {
+  font-size: @font-size-small;
+  color: @gray-light;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  line-height: 1.5;
+}
+
+.hightlight {
+  color: @red;
+}
+
+.tag {
+  margin-right: 1em;
+}

@@ -1,0 +1,115 @@
+/*
+ * @Author: huyu 
+ * @Date: 2020-07-15 16:29:58 
+ * @Last Modified by: huyu
+ * @Last Modified time: 2020-08-10 12:02:04
+ */
+
+// 布局样式
+@import "../../theme/index.less";
+
+.main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 11;
+  background-color: @white;
+  transition: top 250ms;
+  top: -100%;
+  font-size: @font-size-normal;
+  color: @font-color;
+  font-weight: bold;
+  height: 52px;
+  line-height: 52px;
+  text-align: center;
+  border-bottom: 1px solid @border;
+  padding: 0 @padding;
+
+  span {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 6px;
+  }
+
+  a {
+    line-height: 1;
+
+    svg {
+      width: 30px;
+      height: 30px;
+      fill: @gray;
+    }
+  }
+}
+
+.left {
+  flex: 0 0 20%;
+  position: sticky;
+  top: 0;
+  overflow: auto;
+  min-width: 200px;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+}
+
+.right {
+  flex: 0 0 20%;
+  position: sticky;
+  top: 0;
+  overflow: auto;
+  min-width: 200px;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+}
+
+
+@media screen and (max-width:1000px) {
+  .left, .right {
+    display: none;
+  }
+
+  .header {
+    top: 0;
+  }
+
+  .content {
+    padding: 12px 12px 0 !important;
+    padding-top: 52px !important;
+
+    h1 {
+      height: 0;
+      overflow: hidden;
+      padding-bottom: 0 !important;
+    }
+  }
+}
+
+
+.content {
+  flex: 1 1 auto;
+  padding: @padding @padding 0;
+  overflow: auto;
+  background: @white;
+  max-width: @content-max-width-small;
+}
+
+@media screen and (min-width:1440px) {
+  .content {
+    max-width: @content-max-width-normal;
+  }
+}

@@ -1,0 +1,51 @@
+/*
+ * @Author: huyu 
+ * @Date: 2020-06-06 17:21:31 
+ * @Last Modified by: huyu
+ * @Last Modified time: 2020-08-10 12:00:31
+ */
+
+// 文章详情样式
+@import "../../theme/index.less";
+
+.article {
+  h1 {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+}
+
+.btns {
+  margin: @margin*2 0;
+  text-align: center;
+
+  span {
+    display: inline-block;
+    cursor: pointer;
+    padding: 12px @padding;
+    border: 1px solid @border;
+    letter-spacing: 2px;
+    color: @gray-light;
+    transition: color 250ms;
+    border-radius: @border-radius;
+
+    &:last-of-type {
+      border-left: 0;
+    }
+
+    &:last-of-type {
+      border-left: 1px solid @border;
+    }
+
+    &:hover {
+      color: @gray;
+    }
+  }
+}
+
+.relation {
+  h3 {
+    margin: @margin 0;
+  }
+}

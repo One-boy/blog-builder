@@ -1,0 +1,48 @@
+/*
+ * @Author: huyu 
+ * @Date: 2020-07-15 13:16:59 
+ * @Last Modified by: huyu
+ * @Last Modified time: 2020-07-17 15:43:22
+ */
+
+// 文章分类样式
+
+@import "../../theme/index.less";
+
+.main {
+  padding: @padding;
+  text-align: right;
+}
+
+.ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin: 1em 0;
+    line-height: 1.5;
+  }
+}
+
+.anchor {
+  font-size: 1.4rem;
+  color: @header-color;
+  display: flex;
+  justify-content: flex-end;
+
+  span:nth-child(1) {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  span:nth-child(2) {
+    flex: 0 0 auto;
+  }
+
+  &:hover {
+    color: @highlight-color;
+  }
+}

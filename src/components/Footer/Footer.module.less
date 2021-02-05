@@ -1,0 +1,40 @@
+/*
+ * @Author: huyu 
+ * @Date: 2020-06-06 11:36:57 
+ * @Last Modified by: hy
+ * @Last Modified time: 2020-07-27 22:22:01
+ */
+
+// 页底组件样式
+@import "../../theme/index.less";
+
+.main {
+  height: @footer-height;
+  line-height: @footer-height / 2;
+  text-align: center;
+
+  a {
+    font-size: 12px;
+  }
+}
+
+.ext {
+  padding-right: 40px;
+
+  li {
+    display: inline;
+    :global {
+      .normal-link {
+        font-size: 1.2rem;
+      }
+    }
+    &::after {
+      content: "•";
+      padding: 0.75rem;
+    }
+
+    &:last-of-type::after {
+      display: none;
+    }
+  }
+}

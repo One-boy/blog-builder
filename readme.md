@@ -1,54 +1,51 @@
-### markdown博客生成器
+## 描述
 
-#### 关键词
-- markdown博客生成器，markdown静态网站生成器
+此仓库是[https://www.nuobel.com](https://www.nuobel.com)网站构建系统
 
-#### 功能：
-- 通过在文件夹中编写markdown文件，可以一键生成按照您的目录排版的静态页面
+网站使用`gatsby`构建，用于书写`markdown`格式的文章
 
-#### 使用方法
-- `git clone`本项目
+## 怎么使用（How use it？）
+
+- `git clone git@github.com:One-boy/blog-builder.git`
 - `npm install`
-- 项目根目录下创建您的博客文件夹：如`blog`
-- 配置文件`config.js`（也可忽略此步，使用默认）
-- 执行`node run.js`
-- 拷贝`dist`文件夹下内容到您的web服务器目录
-- 打开您的网站访问
+- `npm start`
+- 浏览器打开（open）`http://localhost:8000/`即可查看
 
-#### 环境
-- `nodeJs>=10.10`：需要使用`nodeJs`版本大于等于`10.10.0`
-- 代码高亮使用`highlight.js`
+## 目录介绍
 
-#### 举例：
-- 有一个笔记目录，文件结构如下：
-```
---blog
-  --javascript学习笔记
-    --js高级程序.md
-    --html5_CanvasAPI指南.md
-  --java学习笔记
-    --ssh学习指南.md
-  --金融学习笔记
-    --怎么理财.md
-```
-- 那么我们可以配置博客生成器
-```
-在config.js文件夹下配置:
+- **markdownFiles**：存放 markdown 博客的文件夹
+- **src**：网站构建系统源码
+- **gatsby-\*.js**：gatsby 相关配置文件
 
-// 采用的模板名词
-const TEMPLATE_NAME = 'tp1'
-// 模板路径
-const TEMPLATE_PATH = './template'
+## 怎么写文章？
 
-// 博客路径
-const BLOG_PATH = './blog'
+- 请在`markdownFiles`文件夹里面命名文件夹或 md 文件
+
+- 执行`npm start`并访问`http://localhost:8000/`可自行开发博客框架系统
+
+- 访问`http://localhost:8000/___graphql`可进入`graphql`查询界面
+
+- 执行`npm run build`可打包，并存放在`public`文件夹下，只需要拷贝该文件夹到 web 服务器，静态网站就成了！
+
+## md 格式化数据解释
+
+每一个 md 文件头部都有一段格式化数据，用来描述标题、时间、标签和分类等信息，如下：
 
 ```
-- 然后执行`node run.js`
-```
-成功后会在dist文件夹下有静态页面
-拷贝在您的服务器就行了
+---
+title: "(11)SVG动画"
+date: "2020-08-12 13:50"
+tag: "svg,svg动画"
+category: "SVG"
+---
 ```
 
-#### 其它
-- 目前只有一个模板`tp1`
+## 其它
+
+写文章只支持`.md`格式
+
+markdown 文章 ui 样式采用`github风格`
+
+markdown 文章内高亮采用`prismjs`
+
+文章支持`本地图片、本地文件和本地音视频`，方便在文章内引入本地资源，打包时也会打入。

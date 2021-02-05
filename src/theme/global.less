@@ -1,0 +1,79 @@
+/*
+ * @Author: huyu 
+ * @Date: 2020-06-06 11:48:39 
+ * @Last Modified by: huyu
+ * @Last Modified time: 2020-07-17 15:02:26
+ */
+
+// 全局样式
+@import "./index.less";
+
+html {
+  font-size: 10px;
+}
+
+html,
+body {
+  color: @font-color;
+  background-color: @body-back;
+}
+
+body {
+  min-width: 980px;
+}
+
+@media screen and (max-width: 1367px) {
+  body {
+    min-width: 100%;
+  }
+}
+
+html,
+body,
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #364149;
+  font-weight: bold;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+a.normal-link {
+  text-decoration: none;
+  font-size: @font-size-normal;
+
+  &:hover {
+    color: @highlight-color;
+    border-bottom: 1px solid @highlight-color;
+  }
+}

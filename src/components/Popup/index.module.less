@@ -1,0 +1,66 @@
+/*
+ * @Author: huyu 
+ * @Date: 2020-07-15 18:34:27 
+ * @Last Modified by: huyu
+ * @Last Modified time: 2020-07-17 15:53:46
+ */
+
+// 抽屉样式
+@import "../../theme/index.less";
+
+.main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 1;
+  transition: all 250ms;
+}
+
+
+.opening {
+  opacity: 1;
+
+  .content.left {
+    left: 0;
+  }
+
+  .content.right {
+    right: 0;
+  }
+}
+
+.closing {
+  opacity: 0.1;
+
+  .content.left {
+    left: -100%;
+  }
+
+  .content.right {
+    right: -100%;
+  }
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 70%;
+  max-width: 300px;
+  z-index: 12;
+  background-color: @white;
+  overflow: auto;
+  transition: all 250ms;
+}
+
+.left {
+  left: -100%;
+}
+
+.right {
+  right: -100%;
+}

@@ -1,0 +1,65 @@
+/* Adjust the position of the line numbers */
+.gatsby-highlight {
+  position: relative;
+}
+
+.gatsby-highlight pre[class*="language-"] {
+  border-radius: 4px;
+}
+
+.gatsby-highlight .line-numbers .line-numbers-rows {
+  top: 1.4em;
+  left: 1em !important;
+}
+
+.gatsby-highlight:not([data-language=""])::before {
+  color: #232129;
+  font-size: 12px;
+  letter-spacing: 0.075em;
+  line-height: 1;
+  position: absolute;
+  z-index: 9;
+  right: 1.5em;
+  text-align: right;
+  text-transform: uppercase;
+  top: 0px;
+  border-radius: 0px 0px 4px 4px;
+  padding: 0.25em 0.5em;
+  background-color: burlywood;
+  content: attr(data-language);
+}
+
+.gatsby-highlight-code-line {
+  background-color: #54514f;
+  display: block;
+  margin-right: -1em;
+  margin-left: -1em;
+  padding-right: 1em;
+  padding-left: 0.75em;
+  border-left: 0.25em solid #ff9800;
+}
+
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  margin: 0 auto;
+  font-size: 16px !important;
+
+}
+
+.markdown-body pre[class*="language-"]{
+  max-height: 500px;
+}
+
+.markdown-body img {
+  padding: 0.5em 0;
+  cursor: pointer;
+}
+
+.markdown-body .mermaid {
+  overflow: auto;
+}
+
+.markdown-body .anchor.after {
+  padding-left: 0 !important;
+}
